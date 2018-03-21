@@ -24,8 +24,8 @@
 "==========================================
 
 " 修改leader键
-let mapleader = ','
-let g:mapleader = ','
+let mapleader = "\<space>"
+let g:mapleader = "\<space>"
 
 " 开启语法高亮
 syntax on
@@ -308,6 +308,11 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+map <leader>wj <C-W>j
+map <leader>wk <C-W>k
+map <leader>wh <C-W>h
+map <leader>wl <C-W>l
+
 " Go to home and end using capitalized directions
 noremap H ^
 noremap L $
@@ -323,8 +328,6 @@ cnoremap <C-e> <End>
 
 
 " 搜索相关
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
 " 进入搜索Use sane regexes"
 nnoremap / /\v
 vnoremap / /\v
