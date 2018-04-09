@@ -61,28 +61,20 @@ Plug 'Raimondi/delimitMate'
 Plug 'alvan/vim-closetag'
 
 " quick edit
-" 快速注释
 Plug 'scrooloose/nerdcommenter'
 
+" prolog support
+Plug 'adimit/prolog.vim'
 
-" 快速加入修改环绕字符
 " for repeat -> enhance surround.vim, . to repeat command
 Plug 'tpope/vim-repeat' | Plug 'tpope/vim-surround'
 
 " trailingwhitespace
-" 快速去行尾空格 [, + <Space>]
 Plug 'bronson/vim-trailing-whitespace'
 
-" easyalign
-" 快速赋值语句对齐
-" Plug 'junegunn/vim-easy-align'
-
-" quick movement
 " easymotion
-"更高效的移动 [,, + w/fx/h/j/k/l]
 Plug 'Lokaltog/vim-easymotion'
 
-" 更高效的行内移动, f/F/t/T, 才触发
 " quickscope
 Plug 'unblevable/quick-scope'
 
@@ -95,25 +87,15 @@ Plug 'unblevable/quick-scope'
 Plug 'kshenoy/vim-signature'
 
 " quick selection and edit
-" expandregion
-" 选中区块
 Plug 'terryma/vim-expand-region'
 
-" 多光标选中编辑
 " multiplecursors
 Plug 'terryma/vim-multiple-cursors'
-
-" quick locate file or function
-" 文件搜索
-" change to https://github.com/ctrlpvim/ctrlp.vim
-" ctrlp ctrlpfunky
-" Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 
 " quickrun
 Plug 'thinca/vim-quickrun'
 
 " mundo
-" edit history, 可以查看回到某个历史状态
 Plug 'simnalamburt/vim-mundo'
 
 " airline
@@ -291,9 +273,7 @@ let g:ycm_show_diagnostics_ui = 0
 " let g:ycm_key_list_select_completion = ['<TAB>']
 " let g:ycm_key_list_previous_completion = ['<S-TAB>']
 
-let g:ycm_key_list_stop_completion = ['<C-y>', '<UP>', '<DOWN>','<CR>']
-
-let g:ycm_key_accept_completion = ['<CR>']
+let g:ycm_key_list_stop_completion = ['<C-c>']
 
 let g:ycm_semantic_triggers =  {
             \   'c' : ['->', '.'],
@@ -323,7 +303,7 @@ if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_
 endif
 
 " 直接触发自动补全 insert模式下
-let g:ycm_key_invoke_completion = '<c-c>'
+let g:ycm_key_invoke_completion = '<C-Space>'
 
 " 黑名单,不启用
 let g:ycm_filetype_blacklist = {
@@ -427,8 +407,8 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " expandregion {{{
 " map + <Plug>(expand_region_expand)
 " map _ <Plug>(expand_region_shrink)
-vmap v <Plug>(expand_region_expand)
-vmap V <Plug>(expand_region_shrink)
+vmap K <Plug>(expand_region_expand)
+vmap J <Plug>(expand_region_shrink)
 " Extend the global default
 call expand_region#custom_text_objects({
             \ 'a]' :1,
