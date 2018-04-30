@@ -1,22 +1,5 @@
 "==========================================
-" Author:  wklken
-" Version: 9.1
-" Email: wklken@yeah.net
-" BlogPost: http://www.wklken.me
-" ReadMe: README.md
-" Donation: http://www.wklken.me/pages/donation.html
-" Last_modify: 2015-12-15
-" Sections:
-"       -> Initial Plugin 加载插件
-"       -> General Settings 基础设置
-"       -> Display Settings 展示/排版等界面格式设置
-"       -> FileEncode Settings 文件编码设置
-"       -> Others 其它配置
-"       -> HotKey Settings  自定义快捷键
-"       -> FileType Settings  针对文件类型的设置
-"       -> Theme Settings  主题设置
-"
-"       -> 插件配置和具体设置在vimrc.bundles中
+"   插件配置和具体设置在vimrc.bundles中
 "==========================================
 
 "==========================================
@@ -109,11 +92,6 @@ set cursorcolumn
 " show current row
 set cursorline
 
-" 命令行（在状态行下）的高度，默认为1，这里是2
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
-" Always show the status line - use 2 lines for the status bar
-set laststatus=2
-
 set number
 set nowrap
 set showmatch
@@ -157,7 +135,6 @@ set smartindent
 set autoindent
 
 " tab相关变更
-" 设置Tab键的宽度        [等同的空格个数]
 set tabstop=4
 " 每一次缩进对应的空格数
 set shiftwidth=4
@@ -172,7 +149,6 @@ set shiftround
 
 " A buffer becomes hidden when it is abandoned
 set hidden
-set wildmode=list:longest
 
 " 00x增减数字时使用十进制
 set nrformats=
@@ -200,39 +176,23 @@ nnoremap <C-n> :call NumberToggle()<cr>
 set encoding=utf-8
 " 自动判断编码时，依次尝试以下编码：
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-" set helplang=cn
-"set langmenu=zh_CN.UTF-8
-"set enc=2byte-gb18030
 " 下面这句只影响普通模式 (非图形界面) 下的 Vim
 set termencoding=utf-8
-
-" Use Unix as the standard file type
-" set ffs=unix,dos,mac
 
 " 如遇Unicode值大于255的文本，不必等到空格再折行
 set formatoptions+=m
 " 合并两行中文时，不在中间加空格
 set formatoptions+=B
 
-
 "==========================================
 " others 其它设置
 "==========================================
-
-" vimrc文件修改之后自动加载, linux
-autocmd! bufwritepost .vimrc source %
-
-" 自动补全配置
-" 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-set completeopt=longest,menu
-
 " 增强模式中的命令行自动完成操作
 set wildmenu
+set wildmode=list:longest,full
+
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc,*.class
-
-" 离开插入模式后自动关闭预览窗口
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " 上下左右键的行为 会显示其他信息
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
@@ -250,7 +210,6 @@ endif
 "==========================================
 
 " 主要按键重定义
-
 " 关闭方向键, 强迫自己用 hjkl
 map <Left> <Nop>
 map <Right> <Nop>
@@ -263,8 +222,6 @@ nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
-
-" F1 - F6 设置
 
 " F1 废弃这个键,防止调出系统帮助
 " I can type :help on my own, thanks.  Protect your fat fingers from the evils of <F1>
@@ -347,21 +304,13 @@ autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 nnoremap [b :bprevious<cr>
 nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
-noremap <left> :bp<CR>
-noremap <right> :bn<CR>
-
+noremap <left> :tabnext<CR>
+noremap <right> :tabprev<CR>
 " tab切换
 map <leader>th :tabfirst<cr>
 map <leader>tl :tablast<cr>
-
 map <leader>tj :tabnext<cr>
 map <leader>tk :tabprev<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprev<cr>
-
-map <leader>te :tabedit<cr>
-map <leader>td :tabclose<cr>
-map <leader>tm :tabm<cr>
 
 " normal模式下切换到确切的tab
 noremap <leader>1 1gt
@@ -387,7 +336,6 @@ nnoremap <C-t>     :tabnew<CR>
 inoremap <C-t>     <Esc>:tabnew<CR>
 
 " => 选中及操作改键
-
 " 调整缩进后自动选中，方便再次操作
 vnoremap < <gv
 vnoremap > >gv
@@ -399,38 +347,21 @@ map Y y$
 vnoremap <leader>y "+y
 vnoremap <leader>c "+y
 
-" auto jump to end of select
-" vnoremap <silent> y y`]
-" vnoremap <silent> p p`]
-" nnoremap <silent> p p`]
-
 " select all
 map <Leader>sa ggVG
 
 " select block
 nnoremap <leader>v V`}
 
-" w!! to sudo & write a file
-cmap w!! w !sudo tee >/dev/null %
-
 " kj 替换 Esc
 inoremap kj <Esc>
-
-" 滚动Speed up scrolling of the viewport slightly
-nnoremap <C-e> 2<C-e>
-nnoremap <C-y> 2<C-y>
-
-" Jump to start and end of line using the home row keys
-" 增强tab操作, 导致这个会有问题, 考虑换键
-"nmap t o<ESC>k
-"nmap T O<ESC>j
 
 " Quickly close the current window
 nnoremap <leader>q :q<CR>
 
 " Quickly save the current file
 nnoremap <leader>w :w<CR>
-
+" Quickly reload the current file
 nnoremap <leader>e :e<CR>
 
 " 交换 ' `, 使得可以快速使用'跳到marked位置
@@ -440,20 +371,7 @@ nnoremap ` '
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
 
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-map <leader>t gt
-map <leader>T gT
-
-:tnoremap kj <C-\><C-n>
-:tnoremap <Esc> <C-\><C-n>
-:tnoremap <C-h> <C-\><C-N><C-w>h
-:tnoremap <C-j> <C-\><C-N><C-w>j
-:tnoremap <C-k> <C-\><C-N><C-w>k
-:tnoremap <C-l> <C-\><C-N><C-w>l
-
+" lazy boi doesn't want to switch modes
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 
@@ -467,26 +385,6 @@ autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtab
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 autocmd BufRead,BufNewFile *.part set filetype=html
 au BufNewFile,BufRead *.s,*.S set filetype=mips
-
-" autocmd TermOpen set relativenumber! number!
-au! FocusLost
-au! FocusGained
-
-" disable showmatch when use > in php
-au BufWinEnter *.php set mps-=<:>
-
-
-
-" 保存python文件时删除多余空格
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
 
 " 定义函数AutoSetFileHead，自动插入文件头
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
@@ -506,15 +404,13 @@ function! AutoSetFileHead()
     normal o
 endfunc
 
-
-" " 设置可以高亮的关键字
+" 设置可以高亮的关键字
 if has("autocmd")
     if v:version > 701
         autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|DONE\|XXX\|BUG\|HACK\)')
         autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
     endif
 endif
-
 
 " GUI mode
 if has("gui_running")
@@ -530,40 +426,17 @@ if has("gui_running")
     set cursorcolumn
 endif
 
-
 if has("gui_vimr")
     set termguicolors
 endif
+
 colorscheme solarized
 set background=dark
-
-" default value is "normal", Setting this option to "high" or "low" does use the
-" same Solarized palette but simply shifts some values up or down in order to
-" expand or compress the tonal range displayed.
-let g:neosolarized_contrast = "normal"
-
-" Special characters such as trailing whitespace, tabs, newlines, when displayed
-" using ":set list" can be set to one of three levels depending on your needs.
-" Default value is "normal". Provide "high" and "low" options.
-let g:neosolarized_visibility = "normal"
-
-" I make vertSplitBar a transparent background color. If you like the origin solarized vertSplitBar
-" style more, set this value to 0.
-let g:neosolarized_vertSplitBgTrans = 1
-
-" If you wish to enable/disable NeoSolarized from displaying bold, underlined or italicized
-" typefaces, simply assign 1 or 0 to the appropriate variable. Default values:
-let g:neosolarized_bold = 1
-let g:neosolarized_underline = 1
-let g:neosolarized_italic = 1
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
 hi! link ShowMarksHLl DiffAdd
 hi! link ShowMarksHLu DiffChange
-
-"// set file type
-au BufNewFile,BufRead *.s,*.S set filetype=mips
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
