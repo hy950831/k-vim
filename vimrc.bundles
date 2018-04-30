@@ -210,7 +210,6 @@ if has_key(g:plugs, 'ale')
                 \   'java': ['none'],
                 \   'c': ['none'],
                 \   'cpp': ['none'],
-                \   'java': ['none'],
                 \}
 
     " E501 -> 120 chars
