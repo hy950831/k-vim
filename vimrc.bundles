@@ -207,6 +207,7 @@ if has_key(g:plugs, 'ale')
                 \   'python': ['flake8'],
                 \   'javascript': ['eslint'],
                 \   'jinja': ['tidy'],
+                \   'java': ['none'],
                 \   'c': ['none'],
                 \   'cpp': ['none'],
                 \   'java': ['none'],
@@ -304,7 +305,7 @@ if !empty(glob("~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_
 endif
 
 " 直接触发自动补全 insert模式下
-let g:ycm_key_invoke_completion = '<C-Space>'
+" let g:ycm_key_invoke_completion = '<C-Space>'
 
 " 黑名单,不启用
 let g:ycm_filetype_blacklist = {
