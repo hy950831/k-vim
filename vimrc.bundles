@@ -209,6 +209,7 @@ if has_key(g:plugs, 'ale')
                 \   'jinja': ['tidy'],
                 \   'c': ['none'],
                 \   'cpp': ['none'],
+                \   'java': ['none'],
                 \}
 
     " E501 -> 120 chars
